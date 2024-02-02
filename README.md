@@ -115,6 +115,7 @@ CONNECTION!** Just verify that the login screen is accessible.
 All of the commands in this section need to be **executed on the Dokku host machine**!
 
 `dokku config:set --no-restart keycloak DOKKU_LETSENCRYPT_EMAIL=user@example.com`
+
 `dokku letsencrypt:enable keycloak`
 
 
