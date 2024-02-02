@@ -67,6 +67,8 @@ The hostname must match the name of the Dokku vhost app and domain name!
 
 `dokku config:set --no-restart keycloak KEYCLOAK_HOSTNAME=keycloak.example.com`
 
+`dokku domains:set keycloak keycloak.example.com`
+
 **Configure Keycloak Port and Proxy Map**
 
 `dokku config:set --no-restart keycloak KEYCLOAK_HTTP_PORT=80`
