@@ -70,7 +70,8 @@ The hostname must match the name of the Dokku vhost app and domain name!
 **Configure Keycloak Port and Proxy Map**
 
 `dokku config:set --no-restart keycloak KEYCLOAK_HTTP_PORT=80`
-`dokku proxy:ports-add keycloak http:80:80`
+
+`dokku ports:add keycloak http:80:80`
 
 ## Deploy Keycloak and Verify
 
@@ -103,7 +104,7 @@ to check progress.
 
 `dokku logs -t keycloak`
 
-Once the Keycloak deployment has completed, verify that the service is accessible by navigating to
+Once the Keycloak deployment has been completed, verify that the service is accessible by navigating to
 `http://keycloak.example.com/auth/admin` in your browser. **DO NOT LOGIN! THIS IS AN UNSAFE HTTP
 CONNECTION!** Just verify that the login screen is accessible.
 
