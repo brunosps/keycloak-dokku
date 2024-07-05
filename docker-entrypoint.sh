@@ -48,7 +48,7 @@ file_env 'KEYCLOAK_USER'
 file_env 'KEYCLOAK_PASSWORD'
 
 if [ $KEYCLOAK_USER ] && [ $KEYCLOAK_PASSWORD ]; then
-    /opt/jboss/keycloak/bin/add-user-keycloak.sh --user $KEYCLOAK_USER --password $KEYCLOAK_PASSWORD
+    /opt/keycloak/keycloak/bin/add-user-keycloak.sh --user $KEYCLOAK_USER --password $KEYCLOAK_PASSWORD
 fi
 
 ############
@@ -177,16 +177,16 @@ echo "========================================================================="
 echo ""
 
 if [ "$DB_VENDOR" != "h2" ]; then
-    /bin/sh /opt/jboss/tools/databases/change-database.sh $DB_VENDOR
+    /bin/sh /opt/keycloak/tools/databases/change-database.sh $DB_VENDOR
 fi
 
-/opt/jboss/tools/x509.sh
-/opt/jboss/tools/jgroups.sh $JGROUPS_DISCOVERY_PROTOCOL $JGROUPS_DISCOVERY_PROPERTIES
-/opt/jboss/tools/autorun.sh
+/opt/keycloak/tools/x509.sh
+/opt/keycloak/tools/jgroups.sh $JGROUPS_DISCOVERY_PROTOCOL $JGROUPS_DISCOVERY_PROPERTIES
+/opt/keycloak/tools/autorun.sh
 
 ##################
 # Start Keycloak #
 ##################
 
-exec /opt/jboss/keycloak/bin/standalone.sh $SYS_PROPS $@ -Djboss.http.port=$PORT 
+exec /opt/keycloak/keycloak/bin/standalone.sh $SYS_PROPS $@ -Djboss.http.port=$PORT 
 exit $?
