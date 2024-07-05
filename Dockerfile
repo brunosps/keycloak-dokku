@@ -2,6 +2,8 @@ FROM quay.io/keycloak/keycloak:latest
 
 WORKDIR /opt/keycloak
 
+RUN mkdir /opt/keycloak/tools
+
 COPY docker-entrypoint.sh /opt/keycloak/tools
 
 EXPOSE 80
