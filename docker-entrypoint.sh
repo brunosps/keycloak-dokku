@@ -13,5 +13,4 @@ exec /opt/keycloak/bin/kc.sh start \
     --http-enabled=true \
     --http-port=$KC_HTTP_PORT \
     --hostname=$KC_HOSTNAME \
-    --proxy-headers=forwarded
-
+    --proxy-headers=xforwarded
