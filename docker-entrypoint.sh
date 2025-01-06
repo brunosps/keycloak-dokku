@@ -25,7 +25,7 @@ fi
 # To adjust log level, add:
 # -Dlogging.level.org.keycloak=DEBUG
 exec /opt/keycloak/bin/kc.sh start \
-        --proxy=edge \
+        --proxy-headers=forwarded \
         --http-port=$KEYCLOAK_HTTP_PORT \
         --hostname=$KEYCLOAK_HOSTNAME \
         --db=postgres \
