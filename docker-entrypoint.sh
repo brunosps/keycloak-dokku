@@ -25,9 +25,11 @@ fi
 # To adjust log level, add:
 # -Dlogging.level.org.keycloak=DEBUG
 exec /opt/keycloak/bin/kc.sh start \
-    --proxy-headers \
+    --http-enabled=true \
     --http-port=$KEYCLOAK_HTTP_PORT \
     --hostname=$KEYCLOAK_HOSTNAME \
+    --proxy-headers=forwarded \
+    --proxy-address-forwarding=true \
     --db=postgres \
     --db-url=jdbc:postgresql://$DB_ADDR:$DB_PORT/$DB_DATABASE \
     --db-username=$DB_USER \
