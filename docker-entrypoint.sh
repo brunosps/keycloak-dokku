@@ -17,6 +17,8 @@ exec /opt/keycloak/bin/kc.sh start \
     --http-enabled=true \
     --http-port=$KC_HTTP_PORT \
     --hostname=$KC_HOSTNAME \
-    --proxy=$KC_PROXY \
+    --proxy-headers=forwarded \
+    --proxy-address-forwarding=true \
     --health-enabled=$KC_HEALTH_ENABLED \
     --metrics-enabled=$KC_METRICS_ENABLED
+
