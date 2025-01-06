@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:23.0
+FROM quay.io/keycloak/keycloak:22.0
 
 WORKDIR /opt/keycloak
 
