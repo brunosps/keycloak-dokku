@@ -1,32 +1,15 @@
 #!/bin/bash
 
-# Set database config from Heroku DATABASE_URL
-# if [ "$DATABASE_URL" != "" ]; then
-#     echo "Found database configuration in DATABASE_URL=$DATABASE_URL"
-
-#     regex='^postgres://([a-zA-Z0-9_-]+):([a-zA-Z0-9]+)@([a-z0-9.-]+):([[:digit:]]+)/([a-zA-Z0-9_-]+)$'
-#     if [[ $DATABASE_URL =~ $regex ]]; then
-#         export DB_ADDR=${BASH_REMATCH[3]}
-#         export DB_PORT=${BASH_REMATCH[4]}
-#         export DB_DATABASE=${BASH_REMATCH[5]}
-#         export DB_USER=${BASH_REMATCH[1]}
-#         export DB_PASSWORD=${BASH_REMATCH[2]}
-
-#         echo "DB_ADDR=$DB_ADDR, DB_PORT=$DB_PORT, DB_DATABASE=$DB_DATABASE, DB_USER=$DB_USER, DB_PASSWORD=$DB_PASSWORD"
-#         export DB_VENDOR=postgres
-#     fi
-
-# fi
-
-
-
+# Configurar variáveis de ambiente
 export KC_DB="${KC_DB:-postgres}"
-export KC_DB_URL="${KC_DB_URL:-jdbc:postgresql://${DB_ADDR}:${DB_PORT}/${DB_DATABASE}}"
-export KC_DB_USERNAME="${KC_DB_USERNAME:-${DB_USER}}"
-export KC_DB_PASSWORD="${KC_DB_PASSWORD:-${DB_PASSWORD}}"
+export KC_DB_URL="${KC_DB_URL:-jdbc:postgresql://dokku-postgres-keycloakdb:5432/keycloakdb}"
+export KC_DB_USERNAME="${KC_DB_USERNAME:-postgres}"
+export KC_DB_PASSWORD="${KC_DB_PASSWORD}"
 export KC_HOSTNAME="${KC_HOSTNAME:-loginunico.neometa.com.br}"
 export KC_HTTP_PORT="${KC_HTTP_PORT:-8080}"
 export KC_PROXY="${KC_PROXY:-edge}"
+export KC_HEALTH_ENABLED="${KC_HEALTH_ENABLED:-true}"
+export KC_METRICS_ENABLED="${KC_METRICS_ENABLED:-true}"
 
 # Iniciar o Keycloak
 exec /opt/keycloak/bin/kc.sh start \
@@ -34,19 +17,6 @@ exec /opt/keycloak/bin/kc.sh start \
     --http-enabled=true \
     --http-port=$KC_HTTP_PORT \
     --hostname=$KC_HOSTNAME \
-    --proxy=$KC_PROXY
-
-# To adjust log level, add:
-# -Dlogging.level.org.keycloak=DEBUG
-# exec /opt/keycloak/bin/kc.sh start \
-#     --http-enabled=true \
-#     --http-port=$KEYCLOAK_HTTP_PORT \
-#     --hostname=$KEYCLOAK_HOSTNAME \
-#     --proxy-headers=forwarded \
-#     --proxy-trusted-addresses=0.0.0.0/0 \
-#     --db=postgres \
-#     --db-url=jdbc:postgresql://$DB_ADDR:$DB_PORT/$DB_DATABASE \
-#     --db-username=$DB_USER \
-#     --db-password=$DB_PASSWORD
-
-# exit $?
+    --proxy=$KC_PROXY \
+    --health-enabled=$KC_HEALTH_ENABLED \
+    --metrics-enabled=$KC_METRICS_ENABLED
