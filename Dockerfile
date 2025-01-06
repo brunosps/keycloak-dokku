@@ -2,17 +2,18 @@ FROM quay.io/keycloak/keycloak:26.0
 
 WORKDIR /opt/keycloak
 
+# Copiar arquivos necessários
 COPY docker-entrypoint.sh /opt/keycloak/docker-entrypoint.sh
 COPY themes /opt/keycloak/themes
+COPY conf/keycloak.conf /opt/keycloak/conf/keycloak.conf
 
-# Troca para o usuário root temporariamente para alterar permissões
+# Trocar para o usuário root temporariamente para alterar permissões
 USER root
 RUN chmod +x /opt/keycloak/docker-entrypoint.sh
 
-# Retorna para o usuário padrão utilizado pela imagem base
+# Retornar para o usuário padrão utilizado pela imagem base
 USER keycloak
 
-EXPOSE 80
+EXPOSE 8080
 
-ENTRYPOINT [ "/opt/keycloak/docker-entrypoint.sh" ]
-CMD ["-b", "0.0.0.0"]
+ENTRYPOINT ["/opt/keycloak/docker-entrypoint.sh"]
