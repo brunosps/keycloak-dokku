@@ -3,6 +3,7 @@ FROM quay.io/keycloak/keycloak:latest
 WORKDIR /opt/keycloak
 
 COPY docker-entrypoint.sh /opt/keycloak/docker-entrypoint.sh
+COPY themes /opt/keycloak/themes
 
 # Troca para o usuário root temporariamente para alterar permissões
 USER root
