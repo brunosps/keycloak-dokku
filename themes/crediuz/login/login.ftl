@@ -1,19 +1,6 @@
 <#import "template.ftl" as layout>
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
     <#if section = "header">
-        <script>
-            function togglePassword() {
-                var x = document.getElementById("password");
-                var v = document.getElementById("vi");
-                if (x.type === "password") {
-                    x.type = "text";
-                    v.style.color = "#5ccfe6";
-                } else {
-                    x.type = "password";
-                    v.style.color = "white";
-                }
-            }
-        </script>
         <style>
             .login-page {
                 min-height: 100vh;
@@ -161,6 +148,7 @@
                 font-size: 2rem;
                 font-weight: bold;
                 margin-bottom: 2rem;
+                color: white;
             }
 
             .info-list {
@@ -174,6 +162,7 @@
                 display: flex;
                 align-items: flex-start;
                 margin-bottom: 1.5rem;
+                color: rgba(255, 255, 255, 0.9);
             }
 
             .info-bullet {
@@ -186,14 +175,17 @@
                 flex-shrink: 0;
             }
 
-            .info-text {
-                font-size: 1.125rem;
-                line-height: 1.5;
-            }
-
             .info-highlight {
                 color: #5ccfe6;
                 font-weight: 600;
+            }
+
+            #kc-form-buttons {
+                margin-top: 2rem;
+            }
+
+            #kc-form-options {
+                margin-top: 1rem;
             }
         </style>
     </#if>
@@ -207,30 +199,50 @@
                         </div>
                         <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
                             <div class="form-group">
-                                <input tabindex="1" id="username" class="form-control" name="username" value="${(login.username!'')}" type="text" autofocus autocomplete="off" placeholder="Endereço de e-mail" />
+                                <input 
+                                    class="form-control"
+                                    placeholder="Endereço de e-mail"
+                                    id="username"
+                                    name="username"
+                                    value="${(login.username!'')}"
+                                    type="text"
+                                    autofocus
+                                    autocomplete="off"
+                                />
                             </div>
 
                             <div class="form-group">
-                                <input tabindex="2" id="password" class="form-control" name="password" type="password" autocomplete="off" placeholder="Senha" />
+                                <input
+                                    class="form-control"
+                                    placeholder="Senha"
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    autocomplete="off"
+                                />
                             </div>
 
-                            <div class="checkbox">
-                                <#if realm.rememberMe && !usernameEditDisabled??>
-                                    <div class="checkbox">
-                                        <label>
-                                            <#if login.rememberMe??>
-                                                <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox" checked> Lembrar-me
-                                            <#else>
-                                                <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox"> Lembrar-me
-                                            </#if>
-                                        </label>
-                                    </div>
-                                </#if>
-                                <a href="${url.loginResetCredentialsUrl}" class="forgot-password">Esqueceu sua senha?</a>
+                            <div id="kc-form-options">
+                                <div class="checkbox">
+                                    <#if realm.rememberMe && !usernameEditDisabled??>
+                                        <div class="checkbox">
+                                            <label>
+                                                <#if login.rememberMe??>
+                                                    <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox" checked> Lembrar-me
+                                                <#else>
+                                                    <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox"> Lembrar-me
+                                                </#if>
+                                            </label>
+                                        </div>
+                                    </#if>
+                                    <a href="${url.loginResetCredentialsUrl}" class="forgot-password">Esqueceu sua senha?</a>
+                                </div>
                             </div>
 
-                            <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
-                            <input tabindex="4" class="submit-button" name="login" id="kc-login" type="submit" value="Entrar"/>
+                            <div id="kc-form-buttons">
+                                <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
+                                <input class="submit-button" name="login" id="kc-login" type="submit" value="Entrar"/>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -240,25 +252,25 @@
                         <div class="info-list">
                             <div class="info-item">
                                 <div class="info-bullet"></div>
-                                <p class="info-text">
+                                <p>
                                     <span class="info-highlight">Oportunidades exclusivas:</span> Acesso a investimentos de alto potencial selecionados por especialistas.
                                 </p>
                             </div>
                             <div class="info-item">
                                 <div class="info-bullet"></div>
-                                <p class="info-text">
+                                <p>
                                     <span class="info-highlight">Retornos consistentes:</span> Estratégias de investimento focadas em resultados de longo prazo.
                                 </p>
                             </div>
                             <div class="info-item">
                                 <div class="info-bullet"></div>
-                                <p class="info-text">
+                                <p>
                                     <span class="info-highlight">Gestão profissional:</span> Equipe dedicada para maximizar seus ganhos e minimizar riscos.
                                 </p>
                             </div>
                             <div class="info-item">
                                 <div class="info-bullet"></div>
-                                <p class="info-text">
+                                <p>
                                     <span class="info-highlight">Inovação financeira:</span> Acesso às mais recentes tecnologias e produtos do mercado financeiro.
                                 </p>
                             </div>
