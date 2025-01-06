@@ -29,7 +29,7 @@ exec /opt/keycloak/bin/kc.sh start \
     --http-port=$KEYCLOAK_HTTP_PORT \
     --hostname=$KEYCLOAK_HOSTNAME \
     --proxy-headers=forwarded \
-    --proxy-address-forwarding=true \
+    --proxy-trusted-addresses=0.0.0.0/0 \
     --db=postgres \
     --db-url=jdbc:postgresql://$DB_ADDR:$DB_PORT/$DB_DATABASE \
     --db-username=$DB_USER \
