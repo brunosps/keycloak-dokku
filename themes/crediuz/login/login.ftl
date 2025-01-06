@@ -4,11 +4,14 @@
         <style>
             .login-page {
                 min-height: 100vh;
-                width: 100%;
+                width: 100vw;
                 background-image: url("https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80");
                 background-size: cover;
                 background-position: center;
                 position: relative;
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
             }
 
             .login-page::before {
@@ -25,27 +28,48 @@
                 display: flex;
                 min-height: 100vh;
                 position: relative;
+                margin: 0;
+                padding: 0;
             }
 
             .login-section {
                 width: 100%;
-                padding: 2rem;
+                padding: 1.5rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: rgba(255, 255, 255, 0.1);
-                backdrop-filter: blur(10px);
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(8px);
+            }
+
+            @media (max-width: 640px) {
+                .login-section {
+                    padding: 1rem;
+                    min-height: 100vh;
+                }
+                
+                .login-box {
+                    padding: 0;
+                }
+                
+                .form-control {
+                    height: 40px;
+                }
             }
 
             @media (min-width: 1024px) {
                 .login-section {
-                    width: 50%;
+                    width: 45%;
+                }
+                .info-section {
+                    width: 55%;
                 }
             }
 
             .login-box {
                 width: 100%;
-                max-width: 400px;
+                max-width: 360px;
+                padding: 0 1rem;
             }
 
             .logo {
@@ -63,12 +87,13 @@
 
             .form-control {
                 width: 100%;
-                height: 48px;
-                padding: 0.75rem 1rem;
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: 0.5rem;
+                height: 42px;
+                padding: 0.625rem 0.875rem;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 0.375rem;
                 color: white;
+                font-size: 0.875rem;
                 transition: all 0.2s;
             }
 
