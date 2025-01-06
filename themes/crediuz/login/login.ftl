@@ -2,156 +2,98 @@
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
     <#if section = "header">
         <style>
-            .login-page {
-                min-height: 100vh;
+            /* Reset básico */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Correções de layout */
+            body {
+                overflow: hidden;
                 width: 100vw;
+                height: 100vh;
+            }
+
+            .login-page {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
                 background-image: url("https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80");
                 background-size: cover;
                 background-position: center;
-                position: relative;
-                margin: 0;
-                padding: 0;
-                overflow-x: hidden;
             }
 
             .login-page::before {
                 content: '';
                 position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(135deg, rgba(43, 65, 100, 0.8), rgba(43, 90, 115, 0.8));
+                inset: 0;
+                background: linear-gradient(135deg, rgba(43, 65, 100, 0.85), rgba(43, 90, 115, 0.85));
             }
 
             .login-container {
+                position: relative;
                 display: flex;
                 min-height: 100vh;
-                position: relative;
-                margin: 0;
-                padding: 0;
             }
 
+            /* Seção de login */
             .login-section {
                 width: 100%;
-                padding: 1.5rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: rgba(255, 255, 255, 0.05);
-                backdrop-filter: blur(8px);
-            }
-
-            @media (max-width: 640px) {
-                .login-section {
-                    padding: 1rem;
-                    min-height: 100vh;
-                }
-                
-                .login-box {
-                    padding: 0;
-                }
-                
-                .form-control {
-                    height: 40px;
-                }
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(10px);
             }
 
             @media (min-width: 1024px) {
                 .login-section {
                     width: 45%;
                 }
-                .info-section {
-                    width: 55%;
-                }
             }
 
             .login-box {
                 width: 100%;
                 max-width: 360px;
-                padding: 0 1rem;
+                padding: 2rem;
             }
 
-            .logo {
-                margin-bottom: 2rem;
-                text-align: center;
-            }
-
-            .logo img {
-                max-width: 200px;
-            }
-
-            .form-group {
-                margin-bottom: 1rem;
-            }
-
+            /* Formulário */
             .form-control {
                 width: 100%;
                 height: 42px;
-                padding: 0.625rem 0.875rem;
-                background: rgba(255, 255, 255, 0.08);
-                border: 1px solid rgba(255, 255, 255, 0.15);
+                padding: 0.625rem 1rem;
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.12);
                 border-radius: 0.375rem;
                 color: white;
                 font-size: 0.875rem;
-                transition: all 0.2s;
-            }
-
-            .form-control:focus {
-                outline: none;
-                border-color: #5ccfe6;
-                box-shadow: 0 0 0 2px rgba(92, 207, 230, 0.2);
             }
 
             .form-control::placeholder {
-                color: rgba(255, 255, 255, 0.6);
+                color: rgba(255, 255, 255, 0.5);
             }
 
-            .checkbox {
-                display: flex;
-                align-items: center;
-                margin: 1rem 0;
-            }
-
-            .checkbox input {
-                margin-right: 0.5rem;
-            }
-
-            .checkbox label {
-                color: white;
-                font-size: 0.875rem;
-            }
-
+            /* Botão */
             .submit-button {
                 width: 100%;
-                height: 48px;
+                height: 42px;
                 background: linear-gradient(to right, #2b82ea, #5ccfe6);
                 border: none;
-                border-radius: 0.5rem;
+                border-radius: 0.375rem;
                 color: white;
                 font-weight: 500;
                 cursor: pointer;
-                transition: all 0.2s;
             }
 
-            .submit-button:hover {
-                background: linear-gradient(to right, #2674d6, #4dbfd6);
-            }
-
-            .forgot-password {
-                color: #5ccfe6;
-                font-size: 0.875rem;
-                text-decoration: none;
-                float: right;
-            }
-
-            .forgot-password:hover {
-                color: #4dbfd6;
-            }
-
+            /* Seção de informações */
             .info-section {
                 display: none;
-                width: 50%;
+                width: 55%;
                 padding: 2rem;
                 color: white;
             }
@@ -159,58 +101,14 @@
             @media (min-width: 1024px) {
                 .info-section {
                     display: flex;
-                    flex-direction: column;
-                    justify-content: center;
                 }
             }
 
-            .info-content {
-                max-width: 600px;
-                margin: 0 auto;
-            }
-
-            .info-title {
-                font-size: 2rem;
-                font-weight: bold;
-                margin-bottom: 2rem;
-                color: white;
-            }
-
-            .info-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                space-y: 1rem;
-            }
-
-            .info-item {
-                display: flex;
-                align-items: flex-start;
-                margin-bottom: 1.5rem;
-                color: rgba(255, 255, 255, 0.9);
-            }
-
-            .info-bullet {
-                width: 4px;
-                height: 4px;
-                background: #5ccfe6;
-                border-radius: 50%;
-                margin-top: 0.75rem;
-                margin-right: 1rem;
-                flex-shrink: 0;
-            }
-
-            .info-highlight {
-                color: #5ccfe6;
-                font-weight: 600;
-            }
-
-            #kc-form-buttons {
-                margin-top: 2rem;
-            }
-
-            #kc-form-options {
-                margin-top: 1rem;
+            /* Ajustes responsivos */
+            @media (max-width: 640px) {
+                .login-box {
+                    padding: 1.5rem;
+                }
             }
         </style>
     </#if>
@@ -250,15 +148,13 @@
                             <div id="kc-form-options">
                                 <div class="checkbox">
                                     <#if realm.rememberMe && !usernameEditDisabled??>
-                                        <div class="checkbox">
-                                            <label>
-                                                <#if login.rememberMe??>
-                                                    <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox" checked> Lembrar-me
-                                                <#else>
-                                                    <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox"> Lembrar-me
-                                                </#if>
-                                            </label>
-                                        </div>
+                                        <label>
+                                            <#if login.rememberMe??>
+                                                <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox" checked> Lembrar-me
+                                            <#else>
+                                                <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox"> Lembrar-me
+                                            </#if>
+                                        </label>
                                     </#if>
                                     <a href="${url.loginResetCredentialsUrl}" class="forgot-password">Esqueceu sua senha?</a>
                                 </div>
@@ -300,9 +196,6 @@
                                 </p>
                             </div>
                         </div>
-                        <p class="info-title" style="font-size: 1.5rem; margin-top: 2rem;">
-                            Transforme seu futuro financeiro com a Crediuz
-                        </p>
                     </div>
                 </div>
             </div>
