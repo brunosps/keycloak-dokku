@@ -2,12 +2,11 @@
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
     <#if section = "header">
         <style>
-            #kc-page-title {
-                display: none !important;
-            }
-
-            #kc-header {
-                display: none !important;
+            /* Reset e configurações globais */
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
             }
 
             body {
@@ -16,8 +15,18 @@
                 height: 100vh !important;
                 width: 100vw !important;
                 overflow: hidden !important;
+                -webkit-font-smoothing: antialiased !important;
+                -moz-osx-font-smoothing: grayscale !important;
             }
 
+            /* Esconder elementos padrão do Keycloak */
+            #kc-page-title,
+            #kc-header,
+            #kc-header-wrapper {
+                display: none !important;
+            }
+
+            /* Container principal */
             .login-page {
                 position: fixed !important;
                 top: 0 !important;
@@ -50,6 +59,7 @@
                 width: 100% !important;
             }
 
+            /* Seção de login */
             .login-section {
                 width: 100% !important;
                 display: flex !important;
@@ -58,149 +68,192 @@
                 background: rgba(255, 255, 255, 0.03) !important;
                 backdrop-filter: blur(10px) !important;
                 -webkit-backdrop-filter: blur(10px) !important;
-            }
-
-            @media (min-width: 1024px) {
-                .login-section {
-                    width: 45% !important;
-                }
+                padding: 20px !important;
             }
 
             .login-box {
                 width: 100% !important;
                 max-width: 360px !important;
-                padding: 2rem !important;
+                margin: 0 auto !important;
+                padding: 0 20px !important;
             }
 
+            /* Logo */
             .logo {
-                margin-bottom: 2rem !important;
                 text-align: center !important;
+                margin-bottom: 2rem !important;
             }
 
             .logo img {
-                max-width: 180px !important;
+                width: 140px !important;
                 height: auto !important;
+                max-width: 100% !important;
             }
 
+            /* Formulário */
             .form-group {
-                margin-bottom: 1rem !important;
+                margin-bottom: 16px !important;
             }
 
             #kc-form-login input[type="text"],
             #kc-form-login input[type="password"] {
                 width: 100% !important;
-                height: 42px !important;
-                padding: 0.625rem 1rem !important;
+                height: 44px !important;
+                padding: 0 16px !important;
                 background: rgba(255, 255, 255, 0.06) !important;
                 border: 1px solid rgba(255, 255, 255, 0.12) !important;
-                border-radius: 0.375rem !important;
+                border-radius: 8px !important;
                 color: white !important;
-                font-size: 0.875rem !important;
+                font-size: 16px !important;
+                margin-bottom: 16px !important;
             }
 
             #kc-form-login input::placeholder {
                 color: rgba(255, 255, 255, 0.5) !important;
             }
 
-            #kc-login {
-                width: 100% !important;
-                height: 42px !important;
-                background: linear-gradient(to right, #2b82ea, #5ccfe6) !important;
-                border: none !important;
-                border-radius: 0.375rem !important;
-                color: white !important;
-                font-weight: 500 !important;
-                cursor: pointer !important;
-                margin-top: 1rem !important;
-            }
-
+            /* Checkbox e link esqueceu senha */
             .checkbox {
                 display: flex !important;
                 align-items: center !important;
                 justify-content: space-between !important;
-                margin: 1rem 0 !important;
+                margin: 16px 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
             }
 
             .checkbox label {
-                color: rgba(255, 255, 255, 0.9) !important;
-                font-size: 0.875rem !important;
                 display: flex !important;
                 align-items: center !important;
+                color: rgba(255, 255, 255, 0.9) !important;
+                font-size: 14px !important;
+                margin: 0 !important;
             }
 
             .checkbox input[type="checkbox"] {
-                margin-right: 0.5rem !important;
+                margin-right: 8px !important;
+                width: 16px !important;
+                height: 16px !important;
             }
 
             .forgot-password {
                 color: #5ccfe6 !important;
-                font-size: 0.875rem !important;
+                font-size: 14px !important;
                 text-decoration: none !important;
+                margin-left: 16px !important;
             }
 
+            /* Botão de login */
+            #kc-login {
+                width: 100% !important;
+                height: 44px !important;
+                background: linear-gradient(to right, #2b82ea, #5ccfe6) !important;
+                border: none !important;
+                border-radius: 8px !important;
+                color: white !important;
+                font-size: 16px !important;
+                font-weight: 500 !important;
+                cursor: pointer !important;
+                margin-top: 24px !important;
+            }
+
+            /* Seção de informações (desktop) */
             .info-section {
                 display: none !important;
-                width: 55% !important;
-                padding: 2rem !important;
-                color: white !important;
-                position: relative !important;
-                z-index: 2 !important;
             }
 
             @media (min-width: 1024px) {
+                .login-section {
+                    width: 45% !important;
+                }
+
+                .login-box {
+                    padding: 0 40px !important;
+                }
+
                 .info-section {
                     display: flex !important;
-                    flex-direction: column !important;
+                    width: 55% !important;
+                    padding: 40px !important;
+                    color: white !important;
+                    align-items: center !important;
                     justify-content: center !important;
+                }
+
+                .info-content {
+                    max-width: 560px !important;
+                }
+
+                .info-title {
+                    font-size: 32px !important;
+                    font-weight: bold !important;
+                    margin-bottom: 32px !important;
+                }
+
+                .info-item {
+                    display: flex !important;
+                    align-items: flex-start !important;
+                    margin-bottom: 24px !important;
+                }
+
+                .info-bullet {
+                    width: 4px !important;
+                    height: 4px !important;
+                    background: #5ccfe6 !important;
+                    border-radius: 50% !important;
+                    margin: 8px 12px 0 0 !important;
+                    flex-shrink: 0 !important;
+                }
+
+                .info-highlight {
+                    color: #5ccfe6 !important;
+                    font-weight: 600 !important;
                 }
             }
 
-            .info-content {
-                max-width: 560px !important;
-                margin: 0 auto !important;
+            /* Ajustes específicos para mobile */
+            @media (max-width: 480px) {
+                .login-box {
+                    padding: 0 16px !important;
+                }
+
+                .logo img {
+                    width: 120px !important;
+                }
+
+                #kc-form-login input[type="text"],
+                #kc-form-login input[type="password"] {
+                    font-size: 14px !important;
+                }
+
+                .checkbox {
+                    flex-direction: row !important;
+                    align-items: center !important;
+                    font-size: 14px !important;
+                }
+
+                .checkbox label {
+                    font-size: 13px !important;
+                }
+
+                .forgot-password {
+                    font-size: 13px !important;
+                }
+
+                #kc-login {
+                    font-size: 15px !important;
+                }
             }
 
-            .info-title {
-                font-size: 1.875rem !important;
-                font-weight: bold !important;
-                margin-bottom: 2rem !important;
-                color: white !important;
-            }
+            /* Ajustes para telas muito pequenas */
+            @media (max-width: 360px) {
+                .login-box {
+                    padding: 0 12px !important;
+                }
 
-            .info-list {
-                list-style: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-
-            .info-item {
-                display: flex !important;
-                align-items: flex-start !important;
-                margin-bottom: 1.5rem !important;
-                color: rgba(255, 255, 255, 0.9) !important;
-            }
-
-            .info-bullet {
-                width: 4px !important;
-                height: 4px !important;
-                background: #5ccfe6 !important;
-                border-radius: 50% !important;
-                margin-top: 0.75rem !important;
-                margin-right: 1rem !important;
-                flex-shrink: 0 !important;
-            }
-
-            .info-highlight {
-                color: #5ccfe6 !important;
-                font-weight: 600 !important;
-            }
-
-            #kc-content {
-                background: transparent !important;
-            }
-
-            #kc-content-wrapper {
-                margin-top: 0 !important;
+                .logo img {
+                    width: 100px !important;
+                }
             }
         </style>
     </#if>
